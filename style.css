@@ -1,109 +1,148 @@
-/* Configurações Gerais e Reset */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 :root {
-    --primary-color: #2c3e50;    /* Azul escuro profissional */
-    --accent-color: #3498db;     /* Azul claro para destaques */
-    --bg-color: #f8f9fa;         /* Fundo levemente cinza para evitar ofuscamento */
-    --text-color: #333;          /* Texto quase preto para alto contraste */
+    --primary-dark: #0f172a;    
+    --accent-blue: #3b82f6;     
+    --autism-color: #818cf8;    
+    --bg-light: #f8fafc;        
+    --text-main: #1e293b;       
     --white: #ffffff;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    padding-bottom: 50px;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.7;
 }
 
-/* Cabeçalho */
+/* Header Moderno */
 header {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1e293b 100%);
     color: var(--white);
-    padding: 3rem 1rem;
+    padding: 100px 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    position: relative;
+    clip-path: ellipse(150% 100% at 50% 0%);
 }
 
 header h1 {
-    font-size: 2.5rem;
-    letter-spacing: 1px;
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
-/* Conteúdo Principal */
+header h1::after {
+    content: " ♾️"; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.2rem;
+}
+
 main {
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 1000px;
+    margin: -50px auto 60px;
     padding: 0 20px;
+    position: relative;
+    z-index: 10;
 }
 
-/* Seções */
+/* Seções Estilo Card */
 section {
     background: var(--white);
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--accent-color); /* Detalhe visual lateral */
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: transform 0.3s ease;
+}
+
+/* Letras Justificadas nos Parágrafos */
+section p {
+    text-align: justify;
+    hyphens: auto; /* Adiciona hifens se necessário para evitar espaços grandes */
+    margin-bottom: 15px;
+}
+
+section:hover {
+    transform: translateY(-5px);
 }
 
 h3 {
-    color: var(--primary-color);
-    margin-bottom: 1.2rem;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 0.5rem;
+    color: var(--primary-dark);
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-h4 {
-    margin-top: 1.5rem;
-    color: var(--accent-color);
+h3::before {
+    content: "🧩";
+    font-size: 1.4rem;
 }
 
-p, ul {
-    margin-bottom: 1rem;
-}
-
+/* Organização das Listas */
 ul {
-    padding-left: 1.5rem;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 li {
-    margin-bottom: 0.8rem;
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 6px solid var(--accent-blue);
+    transition: 0.2s;
+    text-align: justify; /* Justifica também o texto dentro dos itens da lista */
 }
 
-/* Destaques em negrito */
-b {
-    color: #000;
+li:hover {
+    background: #e2e8f0;
+}
+
+li:last-child {
+    border-left-color: var(--autism-color);
+    background: #eef2ff;
+}
+
+li b {
+    color: var(--primary-dark);
+    font-weight: 700;
 }
 
 /* Rodapé */
 footer {
-    background-color: var(--primary-color);
+    background-color: var(--primary-dark);
     color: var(--white);
+    padding: 60px 20px;
     text-align: center;
-    padding: 2rem;
-    margin-top: 3rem;
-    font-size: 0.9rem;
+    margin-top: 80px;
 }
 
-footer b {
-    color: var(--accent-color);
+footer p {
+    opacity: 0.7;
+    margin-top: 10px;
+    text-align: center; /* Rodapé costuma ficar melhor centralizado */
 }
 
-/* Responsividade para Celulares */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 { font-size: 2rem; }
+    section { padding: 25px; }
     
-    section {
-        padding: 1.2rem;
+    /* Em telas muito pequenas, justificado pode gerar buracos no texto, 
+       então voltamos para a esquerda se necessário */
+    section p, li {
+        text-align: left;
     }
 }
