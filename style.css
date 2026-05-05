@@ -38,8 +38,6 @@ header h1 {
 }
 
 header h1::after {
-    content: " ♾️"; 
-    background: linear-gradient(to right, #ff595e, #ffca3a, #8ac926, #1982c4, #6a4c93);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.2rem;
