@@ -56,6 +56,9 @@ iframe{
     margin: auto; 
 }
 
+.podcast{
+    text-align: center;
+}
 /* Seções Estilo Card */
 section {
     background: var(--white);
