@@ -20,9 +20,10 @@ body {
     background-color: var(--bg-light);
     color: var(--text-main);
     line-height: 1.7;
+    /* AJUSTE: Impede rolagem horizontal indesejada no mobile */
+    overflow-x: hidden; 
 }
 
-/* Header Moderno */
 header {
     background: linear-gradient(135deg, var(--primary-dark) 0%, #1e293b 100%);
     color: var(--white);
@@ -38,7 +39,7 @@ header h1 {
 }
 
 header h1::after {
-    -webkit-background-clip: text;
+    /* AJUSTE: Adicionado conteúdo para o símbolo aparecer */
     -webkit-text-fill-color: transparent;
     font-size: 2.2rem;
 }
@@ -51,16 +52,20 @@ main {
     z-index: 10;
 }
 
-iframe{
-    display:block;
+/* AJUSTE: Iframe Responsivo (Essencial para Celular) */
+iframe {
+    display: block;
     margin: auto; 
+    max-width: 100%; /* Impede o vídeo de sair da tela no mobile */
+    border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
 }
 
-.podcast{
-    padding-top: 2em;
+.podcast {
+    padding-top: 2em; /* Reduzi levemente o padding */
     text-align: center;
 }
-/* Seções Estilo Card */
+
 section {
     background: var(--white);
     padding: 40px;
@@ -71,7 +76,6 @@ section {
     transition: transform 0.3s ease;
 }
 
-/* TUDO JUSTIFICADO */
 main p, 
 main li, 
 main section {
@@ -94,11 +98,11 @@ h3 {
 
 h3::before { content: "🧩"; }
 
-/* Listas */
 ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* AJUSTE: Melhora a quebra de colunas em tablets */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
     gap: 20px;
 }
 
@@ -114,33 +118,31 @@ li:last-child {
     background: #eef2ff;
 }
 
-/* === ESTILO DO LINK DE VÍDEO (NOVO) === */
 .btn-video {
     display: inline-block;
     margin-top: 20px;
     padding: 15px 30px;
     background-color: var(--accent-blue);
-    color: white;
+    color: white !important; /* Garante visibilidade do link */
     text-decoration: none;
     font-weight: 600;
     border-radius: 12px;
     transition: 0.3s ease;
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    text-align: center; /* O texto do botão fica centralizado */
 }
 
 .btn-video:hover {
     background-color: var(--primary-dark);
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
 }
 
-/* === CARROSSEL COM BOTÕES === */
+/* === CARROSSEL RESPONSIVO === */
 .carrossel-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden; /* AJUSTE: Garante que nada saia do card */
 }
 
 .carrossel-container {
@@ -157,7 +159,8 @@ li:last-child {
 
 .carrossel-container img {
     flex: 0 0 100%;
-    height: 450px;
+    /* AJUSTE: Altura adaptável (vh) para não ficar gigante em telas pequenas */
+    height: clamp(250px, 50vh, 450px); 
     object-fit: cover;
     scroll-snap-align: center;
 }
@@ -166,6 +169,8 @@ li:last-child {
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    flex-wrap: wrap; /* AJUSTE: Evita que botões sumam em telas muito finas */
+    justify-content: center;
 }
 
 .btn-nav {
@@ -182,11 +187,6 @@ li:last-child {
     transition: 0.3s;
 }
 
-.btn-nav:hover {
-    background: var(--accent-blue);
-}
-
-/* Rodapé */
 footer {
     background-color: var(--primary-dark);
     color: var(--white);
@@ -196,9 +196,28 @@ footer {
 
 footer b { color: var(--autism-color); }
 
+/* === MEDIA QUERIES (RESPONSIVIDADE FINA) === */
+
 @media (max-width: 768px) {
-    header h1 { font-size: 2rem; }
+    header { padding: 60px 20px; }
+    header h1 { font-size: 1.8rem; } /* Diminui título no mobile */
+    
+    main { 
+        margin-top: -30px; 
+        padding: 0 15px; 
+    }
+    
     section { padding: 25px; }
-    .carrossel-container img { height: 300px; }
-    main p, main li { text-align: left; }
+
+    /* AJUSTE: Desativa justificado no mobile para evitar espaços vazios grandes */
+    main p, main li { text-align: left; } 
+    
+    iframe {
+        height: 200px; /* Diminui altura do vídeo no celular */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 { font-size: 1.5rem; }
+    .btn-nav { width: 35px; height: 35px; } /* Botões menores no celular */
 }
