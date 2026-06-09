@@ -20,7 +20,6 @@ body {
     background-color: var(--bg-light);
     color: var(--text-main);
     line-height: 1.7;
-    /* AJUSTE: Impede rolagem horizontal indesejada no mobile */
     overflow-x: hidden; 
 }
 
@@ -39,7 +38,7 @@ header h1 {
 }
 
 header h1::after {
-    /* AJUSTE: Adicionado conteúdo para o símbolo aparecer */
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.2rem;
 }
@@ -52,20 +51,26 @@ main {
     z-index: 10;
 }
 
-/* AJUSTE: Iframe Responsivo (Essencial para Celular) */
 iframe {
-    display: block;
+    display:block;
     margin: auto; 
-    max-width: 100%; /* Impede o vídeo de sair da tela no mobile */
+    max-width: 100%;
     border-radius: 15px;
     box-shadow: 0 10px 15px rgba(0,0,0,0.1);
 }
 
+/* MODIFICAÇÃO: Centraliza especificamente o container do podcast, 
+   seus textos internos e força o botão a alinhar no centro também */
 .podcast {
-    padding-top: 2em; /* Reduzi levemente o padding */
+    padding-top: 2em; 
+    text-align: center !important;
+}
+.podcast b, 
+.podcast br {
     text-align: center;
 }
 
+/* Seções Estilo Card */
 section {
     background: var(--white);
     padding: 40px;
@@ -76,9 +81,11 @@ section {
     transition: transform 0.3s ease;
 }
 
+/* Informações gerais do site continuam justificadas */
 main p, 
 main li, 
-main section {
+main section,
+main div {
     text-align: justify;
     hyphens: auto;
 }
@@ -87,21 +94,30 @@ section:hover {
     transform: translateY(-5px);
 }
 
+/* Títulos mantidos alinhados à esquerda */
 h3 {
     color: var(--primary-dark);
     font-size: 1.6rem;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
+    text-align: left;
 }
 
 h3::before { content: "🧩"; }
 
+h4 {
+    color: var(--primary-dark);
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* Listas */
 ul {
     list-style: none;
     display: grid;
-    /* AJUSTE: Melhora a quebra de colunas em tablets */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
     gap: 20px;
 }
@@ -123,7 +139,7 @@ li:last-child {
     margin-top: 20px;
     padding: 15px 30px;
     background-color: var(--accent-blue);
-    color: white !important; /* Garante visibilidade do link */
+    color: white !important; 
     text-decoration: none;
     font-weight: 600;
     border-radius: 12px;
@@ -142,7 +158,7 @@ li:last-child {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden; /* AJUSTE: Garante que nada saia do card */
+    overflow: hidden; 
 }
 
 .carrossel-container {
@@ -159,8 +175,7 @@ li:last-child {
 
 .carrossel-container img {
     flex: 0 0 100%;
-    /* AJUSTE: Altura adaptável (vh) para não ficar gigante em telas pequenas */
-    height: clamp(250px, 50vh, 450px); 
+    height: 450px;
     object-fit: cover;
     scroll-snap-align: center;
 }
@@ -169,7 +184,7 @@ li:last-child {
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    flex-wrap: wrap; /* AJUSTE: Evita que botões sumam em telas muito finas */
+    flex-wrap: wrap; 
     justify-content: center;
 }
 
@@ -196,11 +211,11 @@ footer {
 
 footer b { color: var(--autism-color); }
 
-/* === MEDIA QUERIES (RESPONSIVIDADE FINA) === */
+/* === MEDIA QUERIES === */
 
 @media (max-width: 768px) {
     header { padding: 60px 20px; }
-    header h1 { font-size: 1.8rem; } /* Diminui título no mobile */
+    header h1 { font-size: 1.8rem; } 
     
     main { 
         margin-top: -30px; 
@@ -209,15 +224,26 @@ footer b { color: var(--autism-color); }
     
     section { padding: 25px; }
 
-    /* AJUSTE: Desativa justificado no mobile para evitar espaços vazios grandes */
-    main p, main li { text-align: left; } 
+    /* No mobile, as informações gerais vão para a esquerda, mas o podcast permanece no centro */
+    main p, main li, main section, main div { text-align: left; } 
+    .podcast, .podcast b { text-align: center !important; }
     
     iframe {
-        height: 200px; /* Diminui altura do vídeo no celular */
+        height: 200px; 
+    }
+    
+    .carrossel-container img { 
+        height: 260px; 
+        object-fit: contain;
+        background-color: #f8fafc; 
     }
 }
 
 @media (max-width: 480px) {
     header h1 { font-size: 1.5rem; }
-    .btn-nav { width: 35px; height: 35px; } /* Botões menores no celular */
+    .btn-nav { width: 35px; height: 35px; } 
+    
+    .carrossel-container img { 
+        height: 200px;
+    }
 }
