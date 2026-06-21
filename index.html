@@ -114,8 +114,17 @@
                 </iframe>
                 <p class="podcast">
                     <b> PodCast: </b> Importância da acessibilidade e da inclusão em nossa sociedade. <br>
-                    <a href="https://drive.google.com/file/d/1wGWIA0niMxUenNICc0tQK1wEUc2YS_z3/view?usp=sharing"
-                        class="btn-video" target="_blank">🎬 Escute nosso podCast sobre Inclusão</a>
+                    <audio id="audio">
+                        <source src="Inclusão_vai_muito_além_de_rampas (1).m4a" type="audio/mp4">
+                    </audio>
+                    <br>
+                    <button id="btnAudio" onclick="controlarAudio()" class="btn-video">
+                        🎬 Escute nosso Podcast sobre Inclusão
+                         <progress id="barra" value="0" max="100"></progress>
+                    </button>
+
+                   
+                    <br>
                 </p>
             </section>
     </main>
@@ -129,6 +138,31 @@
 
     </footer>
 
+    <script>
+        let audio = document.getElementById("audio");
+        let barra = document.getElementById("barra");
+        let botao = document.getElementById("btnAudio");
+
+        function controlarAudio() {
+            if (audio.paused) {
+                audio.play();
+                botao.innerHTML = "⏸️ Pausar Podcast";
+            } else {
+                audio.pause();
+                botao.innerHTML = "🎬 PodCast: Inclusão";
+            }
+        }
+
+        audio.addEventListener("timeupdate", function () {
+            let porcentagem = (audio.currentTime / audio.duration) * 100;
+            barra.value = porcentagem;
+        });
+
+        audio.addEventListener("ended", function () {
+            botao.innerHTML = "🎬 PodCast: Inclusão";
+            barra.value = 0;
+        });
+    </script>
 </body>
 
 </html>
