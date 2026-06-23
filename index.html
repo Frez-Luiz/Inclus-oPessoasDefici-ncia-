@@ -114,8 +114,18 @@
                 </iframe>
                 <p class="podcast">
                     <b> PodCast: </b> Importância da acessibilidade e da inclusão em nossa sociedade. <br>
-                    <a href="https://drive.google.com/file/d/1wGWIA0niMxUenNICc0tQK1wEUc2YS_z3/view?usp=sharing"
-                        class="btn-video" target="_blank">🎬 Escute nosso podCast sobre Inclusão</a>
+                    <audio id="audio">
+                        <source src="Inclusão_vai_muito_além_de_rampas (1).m4a" type="audio/mp4">
+                    </audio>
+                    <br>
+                    <button id="btnAudio" onclick="controlarAudio()" class="btn-video">
+                        🎬 Escute nosso Podcast sobre Inclusão
+                    </button>
+                    <br>
+                    <progress id="barra" value="0" max="100"></progress>
+                    <br>
+                    <span id="tempo">0:00 / 0:00</span>
+
                 </p>
             </section>
     </main>
@@ -128,6 +138,50 @@
         </p>
 
     </footer>
+
+    <script>
+        let audio = document.getElementById("audio");
+        let barra = document.getElementById("barra");
+        let botao = document.getElementById("btnAudio");
+        let tempo = document.getElementById("tempo");
+
+        function controlarAudio() {
+            if (audio.paused) {
+                audio.play();
+                botao.innerHTML = "⏸️ Pausar Podcast";
+            } else {
+                audio.pause();
+                botao.innerHTML = "🎬 PodCast: Inclusão";
+            }
+        }
+
+        audio.addEventListener("timeupdate", function () {
+
+            let porcentagem = (audio.currentTime / audio.duration) * 100;
+            barra.value = porcentagem;
+
+            let atual = Math.floor(audio.currentTime);
+            let total = Math.floor(audio.duration);
+
+            let minAtual = Math.floor(atual / 60);
+            let segAtual = atual % 60;
+
+            let minTotal = Math.floor(total / 60);
+            let segTotal = total % 60;
+
+            tempo.innerHTML =
+                minAtual + ":" + String(segAtual).padStart(2, "0")
+                + " / " +
+                minTotal + ":" + String(segTotal).padStart(2, "0");
+        });
+
+        audio.addEventListener("ended", function () {
+            botao.innerHTML = "🎬 PodCast: Inclusão";
+            barra.value = 0;
+            tempo.innerHTML = "0:00 / 0:00";
+        });
+    </script>
+
 
 </body>
 
